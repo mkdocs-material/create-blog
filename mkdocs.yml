@@ -1,0 +1,53 @@
+site_name: Blog Tutorial
+site_description: an example blog set up following the blog tutorials
+site_url: http://www.example.com
+
+theme:
+  name: material
+  features:
+    - navigation.indexes
+
+plugins:
+  - search
+  - blog:
+      blog_toc: true
+      archive_date_format: MMMM yyyy
+      categories_allowed:
+        - Holidays
+        - News
+      authors_profiles: true
+      pagination_per_page: 5
+      archive_pagination_per_page: 10
+      categories_pagination_per_page: 10
+      post_slugify: !!python/object/apply:ext.slugs.slugify
+        kwds:
+          short: true
+  - meta
+  - tags
+  - rss:
+      match_path: "blog/posts/.*"
+      date_from_meta:
+        as_creation: date.created
+        as_update: date.updated
+
+extra:
+  social:
+    - icon: fontawesome/brands/mastodon
+      name: squidfunk on Mastodon
+      link: https://fosstodon.org/@squidfunk
+
+hooks:
+  - hooks/socialmedia.py
+
+markdown_extensions:
+  - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Tags: tags.md
+  - Blog:
+     - blog/index.md
+     - blog/tags.md
